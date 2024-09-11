@@ -1,0 +1,23 @@
+/* Optional CSS for additional styling
+.slds-box {
+    border: 1px solid #d8dde6;
+    padding: 15px;
+    border-radius: 4px;
+} */
+
+/* Optional CSS for additional styling */
+.slds-box {
+    border: 1px solid #d8dde6;
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #f3f6f9;
+}
+
+.slds-grid {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+}
+
+.slds-col {
+    padding: 10px;
+}

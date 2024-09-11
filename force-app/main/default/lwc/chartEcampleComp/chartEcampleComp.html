@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Accounts by Rating">
+        <!-- Chart -->
+        <div class="chart-container">
+            <canvas class="donut" lwc:dom="manual"></canvas>
+        </div>
+
+        <!-- Data Table -->
+        <lightning-datatable 
+            key-field="label"
+            data={chartData}
+            columns={columns}
+            hide-checkbox-column="true"
+        >
+        </lightning-datatable>
+
+        <!-- Error handling -->
+        <template if:true={error}>
+            <div class="slds-box slds-theme_error">
+                <p>{error}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>
