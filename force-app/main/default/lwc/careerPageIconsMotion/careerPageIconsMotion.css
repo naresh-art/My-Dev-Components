@@ -1,0 +1,45 @@
+.pyramid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* Center the icons vertically */
+    height: 100vh;            /* Make the container take up full height of the viewport */
+}
+
+.row {
+    display: flex;
+    justify-content: center;   /* Center the icons horizontally */
+    margin-bottom: 20px;       /* Adjust the spacing between rows */
+}
+
+.top-row {
+    margin-bottom: 50px;       /* Increase the spacing between the top row and bottom row */
+}
+
+.bottom-row {
+    margin-top: 50px;          /* Ensure there’s enough space at the top of the bottom row */
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;    /* Stack the icon and content vertically */
+    align-items: center;       /* Center the icon and content horizontally */
+    margin: 0 30px;            /* Adjust the space between icon containers */
+}
+
+.icon {
+    width: 80px;               
+    height: 80px;              
+    transition: transform 0.5s;
+}
+
+.icon-content {
+    margin-top: 10px;          /* Space between icon and content */
+    text-align: center;        /* Center align the text */
+    font-size: 16px;           /* Adjust font size as needed */
+    color: #333;               /* Set text color */
+}
+
+.jump {
+    transform: translateY(-30px);
+}
