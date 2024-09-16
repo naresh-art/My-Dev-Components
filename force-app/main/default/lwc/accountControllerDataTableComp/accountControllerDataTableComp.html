@@ -139,8 +139,13 @@
                         <lightning-layout-item size="12">
                             <div class="slds-box section-box">
                                 <div class="section-header">Job Description</div>
-                                <p class="section-content">{selectedAccount.Description}</p>
+                                <lightning-formatted-rich-text value={selectedAccount.Job_Description__c}></lightning-formatted-rich-text>
                             </div>
+                            
+                            <!-- <div class="slds-box section-box">
+                                <div class="section-header">Job Description</div>
+                                <p class="section-content">{selectedAccount.Job_Description__c}</p>
+                            </div> -->
                         </lightning-layout-item>
 
                         <!-- Section 2: Other Information Box -->

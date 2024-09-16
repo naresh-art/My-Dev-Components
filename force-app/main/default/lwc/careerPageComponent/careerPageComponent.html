@@ -1,0 +1,114 @@
+<template>
+    <div class="custom-background">
+        <lightning-datatable key-field="Id" data={jobOfferRecords} columns={columns} onrowaction={handleRowAction}
+            hide-checkbox-column="false"></lightning-datatable>
+
+        <!-- Modal Popup -->
+        <template if:true={isViewDetailsModalOpen}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <!-- Modal Header -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium">Job Details Information</h2>
+                    </header>
+
+                    <!-- Modal Body -->
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <!-- Section 1: Job Description Box -->
+                        <lightning-layout multiple-rows>
+                            <lightning-layout-item size="12">
+                                <div class="slds-box section-box">
+                                    <!-- <div class="section-header">Job Description</div> -->
+                                    <lightning-formatted-rich-text
+                                        value={selectedJobOffer.JobDescription}></lightning-formatted-rich-text>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={closeModal}></lightning-button>
+                    </footer>
+
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <template if:true={isActionModalOpen}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close"
+                                size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-text-heading_medium">Apply for Job Appliation</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-layout multiple-rows>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input name="firstName" label="First Name" value={firstName}
+                                    onchange={handleFieldChange}></lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input name="lastName" label="Last Name" value={lastName}
+                                    onchange={handleFieldChange}></lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input name="email" label="Email" value={email}
+                                    onchange={handleFieldChange}></lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input name="phone" label="Phone" value={phone}
+                                    onchange={handleFieldChange}></lightning-input>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-combobox name="availability" label="Availability"
+                                    value={selectedAvailability} placeholder="Select availability"
+                                    options={availabilityOptions} onchange={handleFieldChange}>
+                                </lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-combobox name="score" label="Score" value={selectedScore}
+                                    placeholder="Select Score" options={scoreOptions} onchange={handleFieldChange}>
+                                </lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-combobox name="source" label="Source" value={selectedSource}
+                                    placeholder="Select Source" options={sourceOptions} onchange={handleFieldChange}>
+                                </lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <lightning-input type="file" label="Upload File"
+                                    onchange={handleFileChange}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={closeModal}></lightning-button> &nbsp;
+                        <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <template if:true={isSpinnerVisible}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </template>
+    </div>
+</template>
