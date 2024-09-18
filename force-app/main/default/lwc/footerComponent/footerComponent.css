@@ -1,0 +1,121 @@
+.footer-container {
+    background-color: #0A2250;
+    color: #fff;
+    padding: 50px 20px; /* Top/Bottom padding of 50px and Left/Right padding of 20px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.footer-left, .footer-middle, .footer-right {
+    flex: 1;
+    padding: 1 30px; /*  padding: 0 30px; Adds more space between each column */
+}
+
+.footer-left {
+    text-align: left;
+    max-width: 350px; /* Set a max width for better readability */
+}
+
+.footer-left img {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.footer-left p {
+    margin-bottom: 15px; /* Increase margin between paragraphs for better spacing */
+    line-height: 1.6; /* Line height for better readability */
+}
+
+.footer-middle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section {
+    margin-right: 30px; /* Increase space between sections */
+}
+
+.footer-section h3 {
+    font-size: 1.4rem; /* Slightly increase font size for headings */
+    margin-bottom: 15px; /* Add more margin below section headings */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px; /* Increase space between each list item */
+}
+
+.footer-section ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer-right {
+    text-align: left;
+    max-width: 250px; /* Set a max width to balance out the layout */
+}
+
+.footer-right h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.footer-right p {
+    margin: 10px 0; /* Space out contact info */
+    line-height: 1.6;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.social-icons {
+    margin-top: 20px; /* More space above the social icons */
+    display: flex;
+    gap: 15px; /* More space between each social icon */
+}
+
+.social-icon {
+    width: 35px; /* Slightly increase the size of social icons */
+    height: 35px;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack sections on top of each other for mobile */
+        align-items: center;
+    }
+
+    .footer-left, .footer-middle, .footer-right {
+        padding: 20px 0; /* Remove side padding for stacked elements */
+        text-align: center; /* Center text for mobile view */
+    }
+
+    .footer-middle {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
