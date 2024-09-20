@@ -1,0 +1,50 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allows wrapping to the next row when more than 2 cards */
+    justify-content: space-around;  /* Adds spacing between the cards */
+}
+
+.card, .card-2, .card-3, .card-4 {
+    flex-basis: 45%;  /* Each card takes up 45% of the row width */
+    margin-bottom: 20px;  /* Adds space between rows */
+    border: 1px solid #dcdcdc; /* Optional: Add border for card separation */
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Optional: Add shadow for card elevation */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    background-color: #d5e2f3;  /* Background color for cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d; /* Allowing 3D transformation */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+}
+
+
+.centered-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    width: 80px;  /* Set the size of the icons */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.text-container {
+    text-align: center;
+}
+
+.centered-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.message-text {
+    font-size: 14px;
+    color: #666;  /* Optional: Text color */
+}
+
+/* Make sure the layout is responsive */
+@media screen and (max-width: 768px) {
+    .card, .card-2, .card-3, .card-4 {
+        flex-basis: 100%;  /* On small screens, each card takes up 100% of the row */
+    }
+}
