@@ -1,0 +1,64 @@
+.rotation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.orbit {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 2px dashed white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: none; /* Initially no animation */
+}
+
+.moon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+}
+
+.slump {
+    top: 20px;
+    left: 50px;
+}
+
+.contraction {
+    top: 50px;
+    right: 50px;
+}
+
+.peak {
+    bottom: 50px;
+    right: 50px;
+}
+
+.expansion {
+    bottom: 20px;
+    left: 50px;
+}
+
+/* Add animation */
+.rotate {
+    animation: rotateAnimation 10s linear infinite;
+}
+
+@keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

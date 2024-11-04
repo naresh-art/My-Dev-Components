@@ -1,0 +1,115 @@
+<template>
+    <lightning-card>
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center">
+                <lightning-spinner alternative-text="Sending Email" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Step 1: Welcome Screen -->
+        <template if:true={isStep1}>
+            <div class="slds-text-align_center slds-p-around_medium welcome-screen">
+                <h1 class="slds-text-heading_large slds-p-bottom_medium">Welcome to PD Email</h1>
+                <lightning-button label="Send Educator Email" variant="brand" onclick={handleNext}></lightning-button>
+            </div>
+        </template>
+
+        <template if:true={isStep2}>
+            <b>selectedUserId: {selectedUserId}</b></br>
+            <b>Current user Id: {USER_ID}</b>
+            <div class="slds-text-align_center slds-p-around_medium">
+                <h2 class="slds-text-heading_medium">Select Email Template</h2>
+                <div class="slds-radio-group">
+                    <lightning-radio-group options={emailTemplates} value={selectedTemplateId}
+                        onchange={handleTemplateChange}>
+                    </lightning-radio-group>
+                </div>
+            </div>
+            <div slot="footer" class="slds-align_absolute-center">
+                <lightning-button label="Previous" onclick={handlePrevious}></lightning-button> &nbsp;
+                <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+            </div>
+        </template>
+
+        <template if:true={isStep3}>
+            <div class="slds-text-align_center slds-p-around_medium">
+                <h2 class="slds-text-heading_medium">Select PD Records</h2>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-grid_align-center slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-4 slds-p-bottom_small">
+                    <lightning-combobox label="Filter by Lead Source" value={leadSource} options={LeadSourceOptions}
+                        onchange={handleLeadSourceChange} title="Search Lead Source Value">
+                    </lightning-combobox>
+                </div>&nbsp;
+                <div class="slds-col slds-size_1-of-4 slds-p-bottom_small">
+                    <lightning-combobox label="Filter by Levels" value={genderIdentity} options={LevelOptions}
+                        onchange={handleGenderIdentityChange} title="Search Level Values">
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <div class="slds-text-align_center slds-m-bottom_medium">
+                <lightning-button label="Apply Filters" variant="brand" onclick={fetchPDRecords}></lightning-button>
+                <lightning-button label="Clear Filter" variant="neutral" class="slds-m-left_small"
+                    onclick={clearFilters}></lightning-button>
+            </div>
+
+            <div class="custom-table-wrapper">
+                <lightning-datatable key-field="Id" data={pdRecords} columns={columns}
+                    onrowselection={handleRowSelection} selected-rows={selectedPdRecordIds}>
+                </lightning-datatable>
+            </div>
+
+            <div slot="footer" class="slds-align_absolute-center">
+                <lightning-button label="Previous" onclick={handlePrevious}></lightning-button> &nbsp;
+                <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+            </div>
+        </template>
+
+        <template if:true={isStep4}>
+            <div class="slds-box slds-theme_default slds-p-around_medium">
+                <!-- Email Body Styling -->
+                <template if:true={isEditing}>
+                    <!-- Editable Rich Text Editor with Trimmed Text -->
+                    <div class="email-preview-box">
+                        <lightning-input-rich-text value={trimmedEmailBody}
+                            onchange={handleEmailChange}></lightning-input-rich-text>
+                    </div>
+                </template>
+                <template if:false={isEditing}>
+                    <!-- Preview of Email with HTML Formatting -->
+                    <lightning-formatted-rich-text value={emailPreview}></lightning-formatted-rich-text>
+                </template>
+
+                <template if:true={showCcBccFields}>
+                    <div class="slds-m-top_medium">
+                        <lightning-input type="text" label="CC Addresses" value={ccAddresses} onchange={handleCcChange}></lightning-input>
+                        <lightning-input type="text" label="BCC Addresses" value={bccAddresses} onchange={handleBccChange}></lightning-input>
+                    </div>
+                </template>
+            </div>
+
+            <div slot="footer" class="slds-align_absolute-center">
+                <lightning-button label="Previous" onclick={handlePrevious}></lightning-button>&nbsp;
+                <template if:false={isEditing}>
+                    <lightning-button label="Edit Email Template" variant="neutral"
+                        onclick={handleEditEmail}></lightning-button>&nbsp;
+                </template>
+                <template if:true={isEditing}>
+                    <lightning-button label="Preview Edited Email" variant="neutral"
+                        onclick={handlePreviewEditedEmail}></lightning-button>&nbsp;
+                </template>
+
+                 <!-- Add CC/BCC Toggle Button -->
+                <lightning-button label="Add CC/BCC Address" variant="neutral" onclick={handleCcBccFields}></lightning-button>&nbsp;
+
+                <lightning-button label="Send Test Email" variant="neutral"
+                    onclick={sendTestEmailHandler}></lightning-button>&nbsp;
+                <lightning-button label="Send Email" variant="brand" onclick={sendEmailHandler}></lightning-button>
+            </div>
+        </template>
+
+    </lightning-card>
+</template>

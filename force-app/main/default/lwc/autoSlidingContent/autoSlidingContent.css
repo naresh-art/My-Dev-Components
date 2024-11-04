@@ -1,0 +1,399 @@
+
+/* .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.left-panel img {
+    width: 100%;
+    height: auto;
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+.content h1 {
+    font-size: 2rem;
+    color: #004080;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learn-more:hover {
+    background-color: #003366;
+} */
+
+
+
+/* .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.left-panel img {
+    width: 100%;
+    height: auto;
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeInEffect 2s ease-in forwards; 
+}
+
+@keyframes fadeInEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.content h1 {
+    font-size: 2rem;
+    color: #004080;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learn-more:hover {
+    background-color: #003366;
+} */
+
+
+/* .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.left-panel img {
+    width: 100%;
+    height: auto;
+}
+
+.fade-in-image {
+    opacity: 0;
+    animation: fadeInImageEffect 2s ease-in forwards;
+}
+
+@keyframes fadeInImageEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+
+.fade-in-content {
+    opacity: 0;
+    animation: fadeInContentEffect 2s ease-in forwards;
+}
+
+@keyframes fadeInContentEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.content h1 {
+    font-size: 2rem;
+    color: #004080;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learn-more:hover {
+    background-color: #003366;
+} 
+
+#f4f6f9
+working code down
+*/
+
+
+/* .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    background-color: #a6c4f1;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.left-panel img {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #a6c4f1;
+    text-align: left;
+}
+
+.fade-in-content {
+    opacity: 0;
+}
+
+.animate-image {
+    animation: fadeInImageEffect 2s ease-in forwards;
+}
+
+.animate-content {
+    animation: fadeInContentEffect 2s ease-in 1s forwards; 
+}
+
+@keyframes fadeInImageEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInContentEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.content h1 {
+    font-size: 2rem;
+    color: #004080;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learn-more:hover {
+    background-color: #1fd19b;
+} */
+
+
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    background-color: #a0def4;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.left-panel img {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #a0def4;
+    text-align: left;
+}
+
+.wave-in-content {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.wave-animation-image {
+    animation: waveInImageEffect 1.5s ease-in-out forwards;
+}
+
+.wave-animation-content {
+    animation: waveInContentEffect 1.5s ease-in-out forwards, staggerWaveEffect 0.3s ease-in-out 0.5s forwards;
+}
+
+@keyframes waveInImageEffect {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes waveInContentEffect {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes staggerWaveEffect {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content h1 {
+    font-size: 2rem;
+    color: #004080;
+    opacity: 0;
+    animation: staggerWaveEffect 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #333;
+    opacity: 0;
+    animation: staggerWaveEffect 1s ease-in-out forwards;
+    animation-delay: 1s; 
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+    animation: staggerWaveEffect 1s ease-in-out forwards;
+    animation-delay: 1.5s;
+}
+
+.learn-more:hover {
+    background-color: #003366;
+}
+
+

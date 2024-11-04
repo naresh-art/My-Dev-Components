@@ -1,0 +1,181 @@
+<!-- <template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+                label="Select Location"
+                placeholder="Choose a location"
+                value={selectedAddress}
+                options={addressOptions}
+                onchange={handleAddressChange}>
+            </lightning-combobox>
+        </div>
+        <div class="slds-p-around_medium">
+            <lightning-map
+                map-markers={mapMarkers}
+                zoom-level="12"
+                center={mapCenter}
+                list-view="visible">
+            </lightning-map>
+        </div>
+    </lightning-card>
+</template> 
+Not working with +,- buttons
+-->
+
+<!-- <template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_8-of-12">
+                <lightning-map
+                    map-markers={mapMarkers}
+                    zoom-level="4"
+                    center={mapCenter}
+                    selected-marker-value={selectedAddress}>
+                </lightning-map>
+            </div>
+
+            <div class="slds-col slds-size_4-of-12 slds-p-around_medium">
+                <div class="slds-text-heading_medium">Select Location</div>
+                <ul class="location-list">
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="USA" onclick={handleMarkerSelect}>
+                            85 Felt Rd, Suite #604, South Windsor, CT 06074
+                        </button>
+                    </li>
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="India" onclick={handleMarkerSelect}>
+                            2nd Floor, Abhi's Ganga, Vittal Rao Nagar, Madhapur, Hyderabad, Telangana 500081
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </lightning-card>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_8-of-12">
+                <lightning-map
+                    map-markers={mapMarkers}
+                    zoom-level="4"
+                    center={mapCenter}
+                    selected-marker-value={selectedAddress}
+                    list-view="visible">
+                </lightning-map>
+            </div>
+            <div class="slds-col slds-size_4-of-12 slds-p-around_medium">
+                <div class="slds-text-heading_medium">Select Location</div>
+                <ul class="location-list">
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="USA" onclick={handleMarkerSelect}>
+                            San Francisco, USA
+                        </button>
+                    </li>
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="India" onclick={handleMarkerSelect}>
+                            Bangalore, India
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </lightning-card>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <div class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-size_8-of-12">
+                <lightning-map
+                    map-markers={mapMarkers}
+                    zoom-level="4"
+                    center={mapCenter}
+                    selected-marker-value={selectedAddress}
+                    list-view="visible">
+                </lightning-map>
+            </div>
+
+            <div class="slds-col slds-size_4-of-12 slds-p-around_medium">
+                <div class="slds-text-heading_medium">Select Location</div>
+                <ul class="location-list">
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="USA" onclick={handleMarkerSelect}>
+                            USA Location: South Windsor, CT
+                        </button>
+                    </li>
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="India" onclick={handleMarkerSelect}>
+                            India Location: Hyderabad, Telangana
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </lightning-card>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <div class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-size_8-of-12">
+                <lightning-map
+                    map-markers={mapMarkers}
+                    zoom-level={zoomLevel}
+                    center={mapCenter}
+                    selected-marker-value={selectedAddress}
+                    list-view="visible">
+                </lightning-map>
+            </div>
+
+            <div class="slds-col slds-size_4-of-12 slds-p-around_medium">
+                <div class="slds-text-heading_medium">Select Location</div>
+                <ul class="location-list">
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="USA" onclick={handleMarkerSelect}>
+                            USA Location: South Windsor, CT
+                        </button>
+                    </li>
+                    <li class="slds-p-vertical_small">
+                        <button class="slds-button slds-button_neutral" data-id="India" onclick={handleMarkerSelect}>
+                            India Location: Hyderabad, Telangana
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </lightning-card>
+</template> -->
+
+
+<template>
+    <lightning-card title="Location Map" icon-name="utility:location">
+        <!-- One frame design: Map and buttons in one frame -->
+        <div class="map-container">
+            <!-- Buttons for location selection -->
+            <div class="location-buttons">
+                <button class="slds-button slds-button_neutral" data-id="USA" onclick={handleMarkerSelect}>
+                    USA Location
+                </button>
+                <button class="slds-button slds-button_neutral" data-id="India" onclick={handleMarkerSelect}>
+                    India Location
+                </button>
+            </div>
+            
+            <!-- Map display -->
+            <lightning-map
+                map-markers={mapMarkers}
+                zoom-level={zoomLevel}
+                center={mapCenter}
+                selected-marker-value={selectedAddress}
+                class="map-element">
+            </lightning-map>
+        </div>
+    </lightning-card>
+</template>

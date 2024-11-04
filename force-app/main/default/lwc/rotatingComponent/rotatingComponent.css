@@ -1,0 +1,143 @@
+/* .rotation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.orbit {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border: 2px dashed rgb(135, 174, 235);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: none; 
+}
+
+.moon {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover; 
+}
+
+.slump {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.contraction {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.peak {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.expansion {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rotate {
+    animation: rotateAnimation 10s linear infinite;
+}
+
+@keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
+
+
+
+/* rotatingComponent.css */
+.rotation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* Full view height */
+    position: relative;
+    background-color: rgb(146, 203, 244);
+}
+
+.orbit {
+    position: relative;
+    width: 400px; /* Adjust size as needed */
+    height: 400px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center;
+    animation: rotate 10s linear infinite;
+}
+
+.moon-container {
+    position: absolute;
+}
+
+.moon {
+    width: 100px; /* Adjust image size */
+    height: 100px;
+    border-radius: 50%;
+}
+
+.label {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+    color: rgb(213, 102, 34);
+}
+
+/* Position the moons around the circle */
+.moon-container:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.moon-container:nth-child(2) {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+.moon-container:nth-child(3) {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.moon-container:nth-child(4) {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+/* Add rotation */
+.rotate {
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
