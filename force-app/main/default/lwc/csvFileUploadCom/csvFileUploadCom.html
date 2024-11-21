@@ -1,0 +1,60 @@
+<!-- <template>
+    <lightning-card title="Upload Account CSV File" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-input type="file" label="Upload CSV"
+                accept=".csv"
+                onchange={handleFileChange}>
+            </lightning-input>
+        </div>
+
+        <div class="slds-align_absolute-center slds-m-top_medium">
+            <lightning-button label="Insert Records"
+                variant="brand"
+                onclick={handleInsertRecords}>
+            </lightning-button>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+    </lightning-card>
+</template> -->
+
+<template>
+    <lightning-card title="Upload Account CSV File" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-input type="file" label="Upload CSV"
+                accept=".csv"
+                onchange={handleFileChange}>
+            </lightning-input>
+        </div>
+
+        <template if:true={fileSize}>
+            <div class="slds-p-around_medium">
+                <p>File Size: {fileSize} KB</p>
+                <template if:true={isFileSizeValid}>
+                    <p style="color: green;">File size is within the acceptable limit.</p>
+                </template>
+                <template if:false={isFileSizeValid}>
+                    <p style="color: red;">File size exceeds the limit of {maxFileSize} KB.</p>
+                </template>
+            </div>
+        </template>
+
+        <div class="slds-align_absolute-center slds-m-top_medium">
+            <lightning-button label="Insert Records"
+                variant="brand"
+                onclick={handleInsertRecords}
+                disabled={disableInsertButton}>
+            </lightning-button>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+    </lightning-card>
+</template>

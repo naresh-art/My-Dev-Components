@@ -87,13 +87,16 @@ public with sharing class EmailTemplateController {
             // List to store email attachments
             List<Messaging.EmailFileAttachment> emailAttachments = getEmailAttachments(templateId);
             System.debug('emailAttachments out Loop::'+emailAttachments);
-            for (Contact conRecord : conRecords) {
-                if (String.isBlank(conRecord.Email)) {
-                    throw new AuraHandledException('Contact email is missing for PD Record: ' + conRecord.Name);
+            for (Contact conRecordObj : conRecords) {
+                if (String.isBlank(conRecordObj.Email)) {
+                    throw new AuraHandledException('Contact email is missing for PD Record: ' + conRecordObj.Name);
                 }
-
-                // Query the contact associated with the PD record
-                Account accList = [SELECT Id, Name, Email__c FROM Account WHERE Id = :conRecord.AccountId LIMIT 1];
+                Contact conRecord =  [SELECT id, Name, firstName, lastName, Email, Phone, AccountId, Account.Name,Account.Email__c, OwnerId, 
+                                    Owner.Name, Owner.Email, Owner.Phone FROM Contact WHERE Id = :conRecordObj.Id LIMIT 1];         
+                Account accList = [SELECT Id, Name, Email__C FROM Account WHERE Id = :conRecord.AccountId LIMIT 1];
+                String personalizedCustomBody = customBody;
+                personalizedCustomBody = personalizedCustomBody.replace('{!Contact.Name}', conRecord.Name != null ? conRecord.Name : '')
+                                        .replace('{!Account.Name}', accList.Name != null ? accList.Name : '');
 
                 // Create an email message using the email template
                 Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
@@ -107,7 +110,7 @@ public with sharing class EmailTemplateController {
                 // Set the "WhatId" as the PD Record (to merge the {!Professional_Development__c} fields)
                 // emailMessage.setWhatId(conRecord.Id);
 
-                emailMessage.setHtmlBody(customBody); // Set custom-designed email body
+                emailMessage.setHtmlBody(personalizedCustomBody); // Set custom-designed email body
                 emailMessage.setSubject(template.Subject); // Set subject from template
                 
                 // Ensure the email is saved as an activity
@@ -145,24 +148,37 @@ public with sharing class EmailTemplateController {
     }
 
     // Get full email template including HTML with PD Record details for preview
+    // @AuraEnabled(cacheable=true)
+    // public static String getEmailTemplateWithData(String templateId, Id conRecordId) {
+    //     try {
+    //         // Query the email template
+    //         EmailTemplate template = [SELECT Body, HtmlValue FROM EmailTemplate WHERE Id = :templateId LIMIT 1];
+    //         Contact conRecord =  [SELECT id, Name, firstName, lastName, Email, Phone, AccountId, Account.Name,Account.Email__c, OwnerId, 
+    //                                                 Owner.Name, Owner.Email, Owner.Phone FROM Contact WHERE Id = :conRecordId LIMIT 1];
+            
+    //         Account accList = [SELECT Id, Name, Email__C FROM Account WHERE Id = :conRecord.AccountId LIMIT 1];
+
+    //         // Initialize the email body with the template's HTML content
+    //         String emailBody = template.HtmlValue;
+
+    //         // Safely replace placeholders with actual data or empty strings if null
+    //         emailBody = emailBody.replace('{!Contact.Name}', conRecord.Name != null ? conRecord.Name : '')
+    //                             .replace('{!Account.Name}', accList.Name != null ? accList.Name : '');
+
+    //         System.debug('emailBody with letterhead Details::' + emailBody);
+    //         return emailBody;
+
+    //     } catch (Exception ex) {
+    //         throw new AuraHandledException('Error processing email template with PD record data: ' + ex.getMessage());
+    //     }
+    // }
+
     @AuraEnabled(cacheable=true)
-    public static String getEmailTemplateWithData(String templateId, Id conRecordId) {
+    public static String getEmailTemplateWithData(String templateId) {
         try {
             // Query the email template
             EmailTemplate template = [SELECT Body, HtmlValue FROM EmailTemplate WHERE Id = :templateId LIMIT 1];
-            Contact conRecord =  [SELECT id, Name, firstName, lastName, Email, Phone, AccountId, Account.Name,Account.Email__c, OwnerId, 
-                                                    Owner.Name, Owner.Email, Owner.Phone FROM Contact WHERE Id = :conRecordId LIMIT 1];
-            
-            Account accList = [SELECT Id, Name, Email__C FROM Account WHERE Id = :conRecord.AccountId LIMIT 1];
-
-            // Initialize the email body with the template's HTML content
             String emailBody = template.HtmlValue;
-
-            // Safely replace placeholders with actual data or empty strings if null
-            emailBody = emailBody.replace('{!Contact.Name}', conRecord.Name != null ? conRecord.Name : '')
-                                .replace('{!Account.Name}', accList.Name != null ? accList.Name : '');
-
-            System.debug('emailBody with letterhead Details::' + emailBody);
             return emailBody;
 
         } catch (Exception ex) {
@@ -181,9 +197,15 @@ public with sharing class EmailTemplateController {
             // List to store email attachments
             List<Messaging.EmailFileAttachment> emailAttachments = getEmailAttachments(templateId);
 
+            Contact conRecordDetails =  [SELECT id, Name, firstName, lastName, Email, Phone, AccountId, Account.Name,Account.Email__c, OwnerId, 
+                                Owner.Name, Owner.Email, Owner.Phone FROM Contact WHERE Id = :conRecord.Id LIMIT 1];         
+            Account accList = [SELECT Id, Name, Email__C FROM Account WHERE Id = :conRecordDetails.AccountId LIMIT 1];
+            String personalizedCustomBody = customBody;
+            personalizedCustomBody = personalizedCustomBody.replace('{!Contact.Name}', conRecordDetails.Name != null ? conRecordDetails.Name : '')
+                                        .replace('{!Account.Name}', accList.Name != null ? accList.Name : '');
             Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
             emailMessage.setToAddresses(new String[] {userEmail});
-            emailMessage.setHtmlBody(customBody); // Set custom-designed email body
+            emailMessage.setHtmlBody(personalizedCustomBody); // Set custom-designed email body
             emailMessage.setSaveAsActivity(false);
             emailMessage.setSubject(template.Subject); // Set subject from template
 

@@ -24,8 +24,8 @@ export default class emailTemplateControllerComp extends LightningElement {
     @track editedEmailBody = ''; // Stores the modified email body
     @track editedEmailBodyUpdatedText = '';
 
-    @track ccAddresses=''; // Field to capture CC addresses
-    @track bccAddresses=''; // Field to capture BCC addresses
+    @track ccAddresses = ''; // Field to capture CC addresses
+    @track bccAddresses = ''; // Field to capture BCC addresses
     @track showCcBccFields = false; // Control visibility of CC/BCC fields
 
     handleCcBccFields() {
@@ -160,8 +160,10 @@ export default class emailTemplateControllerComp extends LightningElement {
         this.isLoading = true;  // Start loading
         const userIdToUse = this.isSearchPrevious ? this.selectedUserId : USER_ID;
         console.log('userIdToUse value after profile check:', userIdToUse);
-        getPDRecordsByUserId({ userId: userIdToUse, leadSource: this.leadSource,
-            genderIdentity: this.genderIdentity})
+        getPDRecordsByUserId({
+            userId: userIdToUse, leadSource: this.leadSource,
+            genderIdentity: this.genderIdentity
+        })
             .then(data => {
                 this.pdRecords = data.map((pdRec, index) => ({
                     ...pdRec,
@@ -182,24 +184,26 @@ export default class emailTemplateControllerComp extends LightningElement {
             });
     }
 
-// Event handlers for filter inputs
-handleLeadSourceChange(event) {
-    this.leadSource = event.detail.value;
-}
+    // Event handlers for filter inputs
+    handleLeadSourceChange(event) {
+        this.leadSource = event.detail.value;
+    }
 
-handleGenderIdentityChange(event) {
-    this.genderIdentity = event.detail.value;
-}
+    handleGenderIdentityChange(event) {
+        this.genderIdentity = event.detail.value;
+    }
 
-clearFilters() {
-    this.leadSource = '';
-    this.genderIdentity = '';
-    this.fetchPDRecords(); // Re-fetch all records without filters
-}
+    clearFilters() {
+        this.leadSource = '';
+        this.genderIdentity = '';
+        this.fetchPDRecords(); // Re-fetch all records without filters
+    }
 
 
     handleTemplateChange(event) {
         this.selectedTemplateId = event.detail.value;
+        this.editedEmailBodyUpdatedText = ''; // Clear any previous edits when changing template
+        this.fetchEmailPreview(); // Reload preview for the new template
     }
 
     handleRowSelection(event) {
@@ -210,19 +214,18 @@ clearFilters() {
     }
 
     fetchEmailPreview() {
-        if (this.selectedPdRecords.length > 0 && this.selectedTemplateId) {
-            getEmailTemplateWithData({ templateId: this.selectedTemplateId, conRecordId: this.selectedPdRecords[0].Id })
+            getEmailTemplateWithData({ templateId: this.selectedTemplateId})
                 .then(result => {
                     // Remove the `]]>` symbol from the result content
                     const cleanedResult = result.replace(/]]>/g, '');
 
                     this.emailPreview = this.formatEmailContent(cleanedResult);
                     this.editedEmailBody = this.stripHtmlTags(cleanedResult || '');
+                    this.editedEmailBodyUpdatedText = '';
                 })
                 .catch(error => {
                     console.error('Error fetching email template preview:', error);
                 });
-        }
     }
 
     handleEditEmail() {
@@ -267,7 +270,12 @@ clearFilters() {
             }
             this.isStep3 = false;
             this.isStep4 = true;
-            this.fetchEmailPreview();
+            // Check if edited content exists; if yes, use it
+            if (this.editedEmailBodyUpdatedText) {
+                this.emailPreview = this.formatEmailContent(this.editedEmailBodyUpdatedText);
+            } else {
+                this.fetchEmailPreview(); // Fetch fresh preview only if no edits exist
+            }
         }
     }
 
@@ -295,11 +303,13 @@ clearFilters() {
     }
 
     sendTestEmailHandler() {
+        console.log('selected selectedPdRecords in Test Email::' + JSON.stringify(this.selectedPdRecords));
+        console.log('selected selectedPdRecordIds in Test Email::' + JSON.stringify(this.selectedPdRecordIds));
         if (this.selectedTemplateId && this.selectedPdRecords.length > 0) {
             this.isLoading = true;
             sendTestEmail({
                 templateId: this.selectedTemplateId,
-                conRecords: this.selectedPdRecords,
+                conRecord: this.selectedPdRecords[0],
                 userEmail: this.userEmail,
                 customBody: this.emailPreview  // Pass the edited email body
             })
@@ -317,13 +327,15 @@ clearFilters() {
     }
 
     sendEmailHandler() {
+        console.log('selected selectedPdRecords::' + JSON.stringify(this.selectedPdRecords));
+        console.log('selected selectedPdRecordIds::' + JSON.stringify(this.selectedPdRecordIds));
         if (this.selectedTemplateId && this.selectedPdRecords.length > 0) {
             // Show loading spinner
             this.isLoading = true;
 
-           // Prepare CC and BCC arrays only if there are values
-           const ccAddressArray = this.ccAddresses ? this.ccAddresses.split(',').map(email => email.trim()) : null;
-           const bccAddressArray = this.bccAddresses ? this.bccAddresses.split(',').map(email => email.trim()) : null;
+            // Prepare CC and BCC arrays only if there are values
+            const ccAddressArray = this.ccAddresses ? this.ccAddresses.split(',').map(email => email.trim()) : null;
+            const bccAddressArray = this.bccAddresses ? this.bccAddresses.split(',').map(email => email.trim()) : null;
 
             sendEmails({
                 templateId: this.selectedTemplateId,
@@ -377,22 +389,45 @@ clearFilters() {
     }
 
     stripHtmlTags(html) {
+        // Remove CDATA symbols
         html = html.replace(/<!\[CDATA\[|\]\]>/g, '');
+        
+        // Replace <br> and <p> tags with appropriate newlines for formatting
         html = html.replace(/<br\s*\/?>/gi, '\n');
         html = html.replace(/<\/p>/gi, '\n\n');
         html = html.replace(/<p[^>]*>/gi, '');
         html = html.replace(/\n\s*\n/g, '\n\n'); // Ensures double newlines between paragraphs
+    
+        // Create a temporary DOM element to parse HTML
         const tmp = document.createElement("DIV");
         tmp.innerHTML = html;
-        let plainText = tmp.textContent || tmp.innerText || "";
-        plainText = plainText.replace(/^.*$/m, '$&\n'); // Adds a break after the first line
-        // Handle the "Regards" section: Ensure no extra breaks after "Regards"
-        if (plainText.includes('Regards,')) {
-            plainText = plainText.replace(/(Regards,)(\n\s*\n)+/g, '$1\n');
+    
+        // Traverse and reconstruct HTML content, retaining anchor tags
+        const processNode = (node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                return node.textContent;
+            }
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'A') {
+                // Preserve <a> tags with their href attribute
+                return `<a href="${node.getAttribute('href')}">${node.textContent}</a>`;
+            }
+            // Process child nodes recursively and join the text
+            return Array.from(node.childNodes).map(child => processNode(child)).join('');
+        };
+    
+        // Construct the plain text with preserved links
+        let processedText = processNode(tmp);
+    
+        // Additional formatting for "Regards" section
+        if (processedText.includes('Regards,')) {
+            processedText = processedText.replace(/(Regards,)(\n\s*\n)+/g, '$1\n');
         }
-        return plainText;
+    
+        return processedText;
     }
     
+    
+
     // closeQuickAction() {
     //     this.dispatchEvent(new CloseActionScreenEvent());
     // }

@@ -70,23 +70,22 @@
 
         <template if:true={isStep4}>
             <div class="slds-box slds-theme_default slds-p-around_medium">
-                <!-- Email Body Styling -->
                 <template if:true={isEditing}>
-                    <!-- Editable Rich Text Editor with Trimmed Text -->
                     <div class="email-preview-box">
                         <lightning-input-rich-text value={trimmedEmailBody}
                             onchange={handleEmailChange}></lightning-input-rich-text>
                     </div>
                 </template>
                 <template if:false={isEditing}>
-                    <!-- Preview of Email with HTML Formatting -->
                     <lightning-formatted-rich-text value={emailPreview}></lightning-formatted-rich-text>
                 </template>
 
                 <template if:true={showCcBccFields}>
-                    <div class="slds-m-top_medium">
-                        <lightning-input type="text" label="CC Addresses" value={ccAddresses} onchange={handleCcChange}></lightning-input>
-                        <lightning-input type="text" label="BCC Addresses" value={bccAddresses} onchange={handleBccChange}></lightning-input>
+                    <div class="cc-bcc-container slds-m-top_medium">
+                        <lightning-input type="text" label="CC Addresses" value={ccAddresses}
+                            onchange={handleCcChange} placeholder="Enter comma-separated email addresses"></lightning-input>
+                        <lightning-input type="text" label="BCC Addresses" value={bccAddresses}
+                            onchange={handleBccChange} placeholder="Enter comma-separated email addresses"></lightning-input>
                     </div>
                 </template>
             </div>
@@ -101,10 +100,8 @@
                     <lightning-button label="Preview Edited Email" variant="neutral"
                         onclick={handlePreviewEditedEmail}></lightning-button>&nbsp;
                 </template>
-
-                 <!-- Add CC/BCC Toggle Button -->
-                <lightning-button label="Add CC/BCC Address" variant="neutral" onclick={handleCcBccFields}></lightning-button>&nbsp;
-
+                <lightning-button label="Add CC/BCC Address" variant="neutral"
+                    onclick={handleCcBccFields}></lightning-button>&nbsp;
                 <lightning-button label="Send Test Email" variant="neutral"
                     onclick={sendTestEmailHandler}></lightning-button>&nbsp;
                 <lightning-button label="Send Email" variant="brand" onclick={sendEmailHandler}></lightning-button>
