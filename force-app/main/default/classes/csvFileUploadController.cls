@@ -1,8 +1,8 @@
 public with sharing class csvFileUploadController {
     @AuraEnabled
-    public static List<Account> insertAccounts(List<Map<String, String>> accountList) {
-        // Debug logs for incoming data
+    public static List<Account> insertAccounts(List<Map<String, String>> accountList, String fileName) {
         System.debug('Incoming Records: ' + accountList);
+        System.debug('File Name: ' + fileName);
 
         if (accountList == null || accountList.isEmpty()) {
             throw new AuraHandledException('No valid data to insert.');
@@ -11,7 +11,6 @@ public with sharing class csvFileUploadController {
         List<Account> accountsToInsert = new List<Account>();
 
         for (Map<String, String> accountData : accountList) {
-            // Ensure mandatory fields are present
             if (String.isBlank(accountData.get('Name'))) {
                 throw new AuraHandledException('Name is required for all records.');
             }
@@ -20,6 +19,25 @@ public with sharing class csvFileUploadController {
             acc.Name = accountData.get('Name');
             acc.Phone = accountData.get('Phone');
             acc.Industry = accountData.get('Industry');
+            acc.CustomerPriority__c = accountData.get('CustomerPriority');
+            acc.File_Name__c = fileName;
+
+            String slaExpirationDateStr = accountData.get('SLAExpirationDate');
+            if (!String.isBlank(slaExpirationDateStr)) {
+                try {
+                    acc.SLAExpirationDate__c = parseDynamicDate(slaExpirationDateStr);
+                } catch (Exception e) {
+                    throw new AuraHandledException('Invalid date format for SLAExpirationDate: ' + slaExpirationDateStr);
+                }
+            }
+            if (!String.isBlank(accountData.get('Amount'))) {
+                try {
+                    acc.Amount__c = Decimal.valueOf(accountData.get('Amount'));
+                } catch (Exception e) {
+                    throw new AuraHandledException('Invalid decimal format for Amount: ' + accountData.get('Amount'));
+                }
+            }
+
             accountsToInsert.add(acc);
         }
 
@@ -32,5 +50,45 @@ public with sharing class csvFileUploadController {
         }
 
         return accountsToInsert;
+    }
+
+    private static Date parseDynamicDate(String dateStr) {
+        Date result;
+        List<String> dateFormats = new List<String>{
+            'MM/DD/YYYY', 
+            'YYYY-MM-DD', 
+            'DD-MM-YYYY',
+            'YYYY/MM/DD',
+            'DD/MM/YYYY',
+            'MM-DD-YYYY'
+        };
+
+        for (String format : dateFormats) {
+            try {
+                if (format == 'MM/DD/YYYY') {
+                    List<String> parts = dateStr.split('/');
+                    result = Date.newInstance(Integer.valueOf(parts[2]), Integer.valueOf(parts[0]), Integer.valueOf(parts[1]));
+                } else if (format == 'YYYY-MM-DD') {
+                    List<String> parts = dateStr.split('-');
+                    result = Date.newInstance(Integer.valueOf(parts[0]), Integer.valueOf(parts[1]), Integer.valueOf(parts[2]));
+                } else if (format == 'DD-MM-YYYY') {
+                    List<String> parts = dateStr.split('-');
+                    result = Date.newInstance(Integer.valueOf(parts[2]), Integer.valueOf(parts[1]), Integer.valueOf(parts[0]));
+                } else if (format == 'YYYY/MM/DD') {
+                    List<String> parts = dateStr.split('/');
+                    result = Date.newInstance(Integer.valueOf(parts[0]), Integer.valueOf(parts[1]), Integer.valueOf(parts[2]));
+                } else if (format == 'DD/MM/YYYY') {
+                    List<String> parts = dateStr.split('/');
+                    result = Date.newInstance(Integer.valueOf(parts[2]), Integer.valueOf(parts[1]), Integer.valueOf(parts[0]));
+                } else if (format == 'MM-DD-YYYY') {
+                    List<String> parts = dateStr.split('-');
+                    result = Date.newInstance(Integer.valueOf(parts[2]), Integer.valueOf(parts[0]), Integer.valueOf(parts[1]));
+                }
+                return result;
+            } catch (Exception e) {
+                // Ignore and try the next format
+            }
+        }
+        throw new AuraHandledException('Unsupported date format: ' + dateStr);
     }
 }

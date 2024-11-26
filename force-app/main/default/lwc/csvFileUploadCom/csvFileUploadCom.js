@@ -92,13 +92,14 @@ export default class CsvFileUploadCom extends LightningElement {
     @track isFileSizeValid = true;
 
     fileContents;
-    maxFileSize = 512; // Max file size in KB (adjust as per Salesforce limit)
+    fileName;
+    maxFileSize = 512; // Max file size in KB
     disableInsertButton = true;
 
     handleFileChange(event) {
         const file = event.target.files[0];
         if (file) {
-            // Calculate file size in KB
+            this.fileName = file.name;
             this.fileSize = (file.size / 1024).toFixed(2);
             this.isFileSizeValid = this.fileSize <= this.maxFileSize;
 
@@ -130,7 +131,6 @@ export default class CsvFileUploadCom extends LightningElement {
         const rows = this.fileContents.split('\n').filter(row => row.trim() !== '');
         const headers = rows[0].split(',');
 
-        // Validate headers
         if (!headers.includes('Name')) {
             throw new Error('Missing "Name" column in CSV header.');
         }
@@ -144,7 +144,6 @@ export default class CsvFileUploadCom extends LightningElement {
             return record;
         });
 
-        // Validate parsed data
         if (this.records.length === 0) {
             throw new Error('No data rows found in CSV.');
         }
@@ -158,16 +157,15 @@ export default class CsvFileUploadCom extends LightningElement {
 
         this.isLoading = true;
 
-        insertAccounts({ accountList: this.records })
+        insertAccounts({ accountList: this.records, fileName: this.fileName })
             .then(result => {
                 this.isLoading = false;
                 this.showToast('Success', `Records inserted successfully! Count: ${result.length}`, 'success');
-                this.records = []; // Clear records after insertion
+                this.records = [];
                 this.disableInsertButton = true;
             })
             .catch(error => {
                 this.isLoading = false;
-                console.error('Error inserting records:', error);
                 this.showToast('Error', `Error inserting records: ${error.body.message}`, 'error');
             });
     }
