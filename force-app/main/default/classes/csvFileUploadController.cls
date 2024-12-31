@@ -38,6 +38,24 @@ public with sharing class csvFileUploadController {
                 }
             }
 
+            String industry = accountData.get('Industry');
+            if (industry != null) {
+                switch on industry {
+                    when 'Electronics' {
+                        acc.AC__c = parseCurrencyField(accountData.get('AC'));
+                        acc.TV__c = parseCurrencyField(accountData.get('TV'));
+                    }
+                    when 'Communications' {
+                        acc.Telephone__c = parseCurrencyField(accountData.get('Telephone'));
+                        acc.Wifi__c = parseCurrencyField(accountData.get('Wifi'));
+                    }
+                    when 'Hospitality' {
+                        acc.Food__c = parseCurrencyField(accountData.get('Food'));
+                        acc.Water__c = parseCurrencyField(accountData.get('Water'));
+                    }
+                }
+            }
+
             accountsToInsert.add(acc);
         }
 
@@ -90,5 +108,14 @@ public with sharing class csvFileUploadController {
             }
         }
         throw new AuraHandledException('Unsupported date format: ' + dateStr);
+    }
+
+    private static Decimal parseCurrencyField(String fieldValue) {
+        if (String.isBlank(fieldValue)) return null;
+        try {
+            return Decimal.valueOf(fieldValue);
+        } catch (Exception e) {
+            throw new AuraHandledException('Invalid decimal format for currency field: ' + fieldValue);
+        }
     }
 }

@@ -1,0 +1,76 @@
+/* First Screen Styling */
+.welcome-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 600px;
+    background-color: #e4f5f7f2;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.current-date {
+    font-size: 16px;
+    color: #607afa;
+    margin-bottom: 20px;
+}
+
+/* Container styling */
+.form-container {
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 700px;
+    border-radius: 10px;
+    background-color: #e4f5f7f2; /* Light background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Title styling */
+.form-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2c3e50; /* Dark blue-gray */
+}
+
+/* Section title */
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #2980b9; /* Primary blue */
+}
+
+/* Input fields */
+.input-field {
+    margin-bottom: 20px;
+}
+
+/* Radio group styling */
+.radio-group {
+    margin-bottom: 20px;
+}
+
+/* Lightning input and radio styles */
+lightning-input, lightning-radio-group {
+    --slds-c-input-text-color: #0a0a0a; /* Dark text */
+    --slds-c-input-background-color: #ffffff; /* White background */
+    --slds-c-input-border-color: #dfe6e9; /* Light gray border */
+    --slds-c-input-border-radius: 6px; /* Rounded corners */
+    --slds-c-input-box-shadow: none;
+}
+
+/* Focus and hover styling */
+lightning-input:focus,
+lightning-radio-group:focus {
+    border-color: #3498db; /* Bright blue border */
+    box-shadow: 0 0 3px 1px #3498db; /* Glow effect */
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

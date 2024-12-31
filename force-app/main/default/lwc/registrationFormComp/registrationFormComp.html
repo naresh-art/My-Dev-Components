@@ -1,0 +1,103 @@
+<template>
+    <template if:false={showForm}>
+        <div class="welcome-container">
+            <h1 class="form-title">SprintPark Enrollment Form</h1>
+            <p class="current-date">{currentDate}</p>
+            <div class="button-container">
+                <lightning-button label="Start Now" variant="brand" onclick={handleStart}></lightning-button>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={showForm}>
+        <div class="form-container">
+            <h1 class="form-title">SprintPark Enrollment Form</h1>
+            <lightning-spinner if:true={showSpinner} alternative-text="Loading"></lightning-spinner>
+            <p class="section-title">Personal Information</p>
+
+            <lightning-input name="firstName" type="text" label="1. First Name" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}></lightning-input>
+
+            <lightning-input name="lastName" type="text" label="2. Last Name" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}></lightning-input>
+
+            <lightning-input name="birthdate" type="date" label="3. Birthdate" required class="input-field"
+                onchange={handleInputChange}></lightning-input>
+
+            <lightning-radio-group name="gender" label="4. What gender do you identify as?" required options={genderOptions}
+                type="radio" class="radio-group" onchange={handleInputChange}></lightning-radio-group>
+
+            <lightning-input name="email" type="email" label="5. Email Address" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}></lightning-input>
+
+            <lightning-input name="primaryContact" type="tel" label="6. Primary Contact Number" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}></lightning-input>
+
+            <lightning-input name="presentLocation" type="text" label="7. Your Present Location" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-radio-group name="willingToRelocate" label="8. Are you willing to relocate?" required options={willingOptions} type="radio"
+                class="radio-group" onchange={handleInputChange}>
+            </lightning-radio-group>
+
+            <lightning-radio-group name="canDrive" label="9. Can you drive?" required options={driveOptions} type="radio"
+                class="radio-group" onchange={handleInputChange}>
+            </lightning-radio-group>
+
+            <lightning-radio-group name="internationalStudent" label="10. Are you an international student?" required options={internationalOptions}
+                type="radio" class="radio-group" onchange={handleInputChange}>
+            </lightning-radio-group>
+
+            <lightning-input type="text" name="citizenship" label="11. Country of citizenship" placeholder="Enter your answer" required
+                class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-radio-group name="currentStatus" label="12. Which of the following best describes your current status?" required
+                options={currentStatusOptions} type="radio" class="radio-group" onchange={handleStatusChange}>
+            </lightning-radio-group>
+
+            <template if:true={showOtherStatusField}>
+                <lightning-input name="otherStatus" type="text" label="Other" placeholder="Please specify" class="input-field" onchange={handleInputChange}>
+                </lightning-input>
+            </template>
+
+            <lightning-input name="visaIssueDate" type="date" label="13. Visa Issue Date" required class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input name="visaExpiryDate" type="date" label="14. Visa Expiry Date" required class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-radio-group name="visaStatus" label="15. What is your Visa Status?" required options={visaStatusOptions} type="radio"
+                class="radio-group" onchange={handleInputChange}>
+            </lightning-radio-group>
+
+            <lightning-input name="experience" type="number" label="16. How many years of experience do you have?" placeholder="Enter years"
+                required class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input name="experienceInIndia" type="number" label="17. How many years of experience do you have in India?"
+                placeholder="Enter years" required class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input name="experienceInUSA" type="number" label="18. How many years of experience do you have in USA?"
+                placeholder="Enter years" required class="input-field" onchange={handleInputChange}>
+            </lightning-input>
+
+
+            <lightning-radio-group name="technology" label="19. In which technology do you have expertise in?" required
+                options={technologyOptions} type="radio" class="radio-group" onchange={handleTechnologyChange}>
+            </lightning-radio-group>
+
+            <template if:true={showOtherTechnologyField}>
+                <lightning-input name="otherTechnology" type="text" label="Other" placeholder="Please specify" class="input-field" onchange={handleInputChange}>
+                </lightning-input>
+            </template>
+
+            <div class="button-container">
+                <lightning-button label="Submit" variant="brand" onclick={handleSubmit}>
+                </lightning-button>
+            </div>
+        </div>
+    </template>
+</template>
