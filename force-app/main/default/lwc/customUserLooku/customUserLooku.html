@@ -1,0 +1,68 @@
+<template>
+    <div class="slds-combobox_container slds-has-inline-listbox">
+        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded={showDropdown}>
+            <!-- Input field for searching -->
+            <lightning-input 
+                type="text" 
+                label="Search User"
+                value={searchKey} 
+                onchange={handleSearchChange} 
+                placeholder="Search users..." 
+                class="slds-input"
+                disabled={hasSelectedUser}>
+            </lightning-input>
+
+            <!-- Clear button -->
+            <template if:true={hasSelectedUser}>
+                <lightning-button-icon 
+                    icon-name="utility:close" 
+                    alternative-text="Clear selection" 
+                    onclick={clearSelection} 
+                    class="slds-input__icon slds-input__icon_right">
+                </lightning-button-icon>
+            </template>
+
+            <!-- Dropdown list for showing search results -->
+            <template if:true={showDropdown}>
+                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid">
+                    <ul class="slds-listbox slds-listbox_vertical slds-dropdown_length-10" role="listbox">
+                        <template if:true={users}>
+                            <template for:each={users} for:item="user">
+                                <li 
+                                    key={user.id} 
+                                    class="slds-listbox__item" 
+                                    role="presentation" 
+                                    data-id={user.id} 
+                                    onclick={handleUserSelect}>
+                                    <div 
+                                        class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_center" 
+                                        role="option">
+                                        <span class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:user" alternative-text="User" size="small"></lightning-icon>
+                                        </span>
+                                        <span class="slds-media__body">
+                                            <span class="slds-truncate" title={user.name}>{user.name}</span>
+                                            <br/>
+                                            <small class="slds-text-color_weak">{user.email}</small>
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </template>
+
+                        <!-- Message when no users found -->
+                        <template if:true={message}>
+                            <li class="slds-listbox__item">
+                                <div class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_center" role="option">
+                                    <span class="slds-media__body">
+                                        <span class="slds-truncate">{message}</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

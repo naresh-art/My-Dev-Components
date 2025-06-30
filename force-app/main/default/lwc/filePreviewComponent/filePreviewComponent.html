@@ -1,0 +1,87 @@
+<template>
+    <lightning-card title={cardTitle}>
+        <lightning-file-upload
+            name="fileUploader"
+            slot="actions"
+            accept={acceptedFormats}
+            record-id={recordId}
+            onuploadfinished={handleUploadFinished}
+            multiple
+        ></lightning-file-upload>
+        <br />
+        <template if:true={loaded}>
+            <ul class="slds-grid slds-wrap slds-gutters slds-p-around_x-small">
+                <template for:each={paginatedFiles} for:item="file">
+                    <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_x-small" key={file.id}>
+                        <div style={file.styleToShow}>
+                            <div
+                                class="slds-grid slds-gutters slds-p-around_xx-small"
+                                data-id={file.ContentDocumentId}
+                                onclick={handleClick}
+                                style="cursor: pointer"
+                            >
+                                <div class="slds-col slds-grow-none">
+                                    <img
+                                        src={file.thumbnailFileCard}
+                                        alt={file.Title}
+                                        style="height: auto; min-width: 30px; max-width: 30px; max-height: 35px"
+                                    />
+                                </div>
+                                <div class="slds-col slds-grid slds-grid_vertical">
+                                    <div class="slds-col slds-text-link">
+                                        <lightning-formatted-text value={file.Title}></lightning-formatted-text>
+                                    </div>
+                                    <div class="slds-col">
+                                        <ul class="slds-list_horizontal slds-has-dividers_right">
+                                            <li class="slds-item">
+                                                <lightning-formatted-date-time
+                                                    value={file.CreatedDate}
+                                                ></lightning-formatted-date-time>
+                                            </li>
+                                            <li class="slds-item">
+                                                <lightning-formatted-text value={file.Size}></lightning-formatted-text>
+                                            </li>
+                                            <li class="slds-item">
+                                                <lightning-formatted-text
+                                                    value={file.Extension}
+                                                ></lightning-formatted-text>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ul>
+            <template if:true={showPagination}>
+                <!-- Pagination Controls -->
+                <div class="slds-m-top_medium slds-text-align_center">
+                    <lightning-button
+                        variant="neutral"
+                        label="Previous"
+                        onclick={handlePreviousPage}
+                        disabled={disablePrev}
+                    ></lightning-button>
+                    <span class="slds-m-horizontal_medium">{currentPage} of {totalPages}</span>
+                    <lightning-button
+                        variant="neutral"
+                        label="Next"
+                        onclick={handleNextPage}
+                        disabled={disableNext}
+                    ></lightning-button>
+                </div>
+            </template>
+        </template>
+        <template if:true={previewUrl}>
+            <lightning-card title="Preview">
+                <template if:true={imageSelected}>
+                    <img src={previewUrl} />
+                </template>
+                <template if:false={imageSelected}>
+                    <iframe src={previewUrl} style="width: 100%; height: 800px"></iframe>
+                </template>
+            </lightning-card>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,115 @@
+<!-- working code with dual box -->
+<!-- <template>
+    <lightning-card title="Multi-Select Picklist">
+        <div class="slds-p-around_medium">
+            <lightning-dual-listbox
+                name="multiSelectField"
+                label="Select Values"
+                source-label="Available Options"
+                selected-label="Selected Options"
+                options={picklistOptions}
+                value={selectedOptions}
+                onchange={handleSelection}>
+            </lightning-dual-listbox>
+        </div>
+
+        <div class="slds-p-around_medium">
+            <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+        </div>
+    </lightning-card>
+
+    <template if:true={showSelectedValues}>
+        <lightning-card title="Selected Values">
+            <div class="slds-p-around_medium">
+                <p>{selectedValues}</p>
+            </div>
+        </lightning-card>
+    </template>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Multi-Select Combobox">
+        <div class="slds-p-around_medium">
+            <div class="custom-combobox">
+                <div class="combobox-input" onclick={toggleDropdown}>
+                    <span if:true={displayValue}>{displayValue}</span>
+                    <span if:false={displayValue} class="placeholder">Select options</span>
+                    <lightning-icon icon-name="utility:down" size="x-small" class="dropdown-icon"></lightning-icon>
+                </div>
+
+                <template if:true={isDropdownOpen}>
+                    <div class="dropdown">
+                        <template for:each={picklistOptions} for:item="option">
+                            <div key={option.value} class="dropdown-item">
+                                <lightning-input type="checkbox"
+                                    data-value={option.value}
+                                    label={option.label}
+                                    checked={option.checked}
+                                    onchange={handleSelection}>
+                                </lightning-input>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <template if:true={selectedOptions.length}>
+            <div class="slds-p-around_medium pill-container">
+                <template for:each={selectedOptions} for:item="selected">
+                    <lightning-pill key={selected} label={selected} onremove={handleRemove}></lightning-pill>
+                </template>
+                <lightning-button variant="destructive-text" label="Clear All" onclick={clearAll}></lightning-button>
+            </div>
+        </template>
+
+        <div class="slds-p-around_medium">
+            <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+        </div>
+    </lightning-card>
+
+    <template if:true={showSelectedValues}>
+        <lightning-card title="Selected Values">
+            <div class="slds-p-around_medium">
+                <p>{selectedValues}</p>
+            </div>
+        </lightning-card>
+    </template>
+</template> -->
+
+
+<template>
+    <lightning-card title="Custom Multi-Select Combobox">
+        <div class="slds-p-around_medium">
+            <div class="custom-combobox">
+                <div class="combobox-input" onclick={toggleDropdown}>
+                    <span if:true={displayValue}>{displayValue}</span>
+                    <span if:false={displayValue} class="placeholder">Select options</span>
+                    <lightning-icon icon-name="utility:down" size="x-small" class="dropdown-icon"></lightning-icon>
+                </div>
+
+                <template if:true={isDropdownOpen}>
+                    <div class="dropdown">
+                        <template for:each={picklistOptions} for:item="option">
+                            <div key={option.value} class="dropdown-item">
+                                <lightning-input type="checkbox"
+                                    data-value={option.value}
+                                    label={option.label}
+                                    checked={option.checked}
+                                    onchange={handleSelection}>
+                                </lightning-input>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <template if:true={selectedOptions.length}>
+            <div class="slds-p-around_medium">
+                <p>Selected: {selectedValues}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

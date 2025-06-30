@@ -1,0 +1,112 @@
+/* .toolbar {
+    border-bottom: 1px solid #d8dde6;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    background: #f4f6f9;
+}
+
+.toolbar button {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #ffffff;
+}
+
+.editor {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    min-height: 150px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    overflow-y: auto;
+    background: #ffffff;
+} */
+
+
+/* .toolbar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f4f6f9;
+    border-bottom: 1px solid #d8dde6;
+    margin-bottom: 0.5rem;
+}
+
+.toolbar select,
+.toolbar button {
+    border: 1px solid #d8dde6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.editor {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    min-height: 200px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+    overflow-y: auto;
+} */
+
+
+.toolbar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f4f6f9;
+    border-bottom: 1px solid #d8dde6;
+    margin-bottom: 0.5rem;
+}
+
+.toolbar select,
+.toolbar button {
+    border: 1px solid #d8dde6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.editor {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    min-height: 200px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.button-group {
+    margin-top: 1rem;
+}
+
+.preview-container {
+    padding: 1rem;
+}
+
+.preview-content {
+    border: 1px solid #d8dde6;
+    padding: 0.5rem;
+    min-height: 200px;
+    background-color: #ffffff;
+}
+
+.editor ul {
+    list-style-type: square; /* Square bullets */
+    padding-left: 20px;
+}
+
+.editor ol {
+    list-style-type: decimal; /* Numbered list */
+    padding-left: 20px;
+    color: blue; /* Make numbers blue */
+}

@@ -37,49 +37,13 @@ public without sharing class ConsultantController {
             consultant.Other_Technology__c = (String) formData.get('otherTechnology');
             consultant.Approval_Status__c = 'Pending Approval From HR';
             insert consultant;
-            // Send email to HR
-            //sendEmailToHR(consultant);
+            System.debug('Consultant Record: ' + consultant);
+
             return consultant.Id;
         } catch (Exception e) {
             throw new AuraHandledException('Error while creating Consultant record: ' + e.getMessage());
         }
     }
-
-    public static void sendEmailToHR(Consultant__c consultant) {
-        try {
-            String hrEmail = 'nareshp@sprintpark.com'; // Replace with HR email
-            String subject = 'New Consultant Registration: ' + consultant.First_Name__c + ' ' + consultant.Last_Name__c;
-            // HTML email body
-            String body = '<html><body>' +
-                '<h2 style="color: #2C3E50;">New Consultant Registration</h2>' +
-                '<p style="font-size: 14px; color: #555;">A new consultant has registered with the following details:</p>' +
-                '<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Name:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.First_Name__c + ' ' + consultant.Last_Name__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Birthdate:</td><td style="padding: 8px; border: 1px solid #ddd;">' + String.valueOf(consultant.Birthdate__c) + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Gender:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Gender__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Email:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Email_Address__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Phone:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Primary_Contact_Number__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Location:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Present_Location__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Willing to Relocate:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Willing_to_Relocate__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Can Drive:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Can_Drive__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Visa Status:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Visa_Status__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Years of Experience:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Years_of_Experience__c + '</td></tr>' +
-                '<tr><td style="font-weight: bold; padding: 8px; border: 1px solid #ddd;">Technology Expertise:</td><td style="padding: 8px; border: 1px solid #ddd;">' + consultant.Technology_Expertise__c + '</td></tr>' +
-                '</table>' +
-                '<p style="font-size: 12px; color: #555; margin-top: 20px;">Please review the details and take the necessary actions.</p>' +
-                '</body></html>';
-    
-            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-            email.setToAddresses(new String[] { hrEmail });
-            email.setSubject(subject);
-            email.setHtmlBody(body); // Use the HTML body for a professional format
-    
-            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
-        } catch (Exception e) {
-            System.debug('Error sending email to HR: ' + e.getMessage());
-        }
-    }
-    
 
     @AuraEnabled(cacheable=true)
     public static List<Map<String, String>> getPicklistValues(String objectName, String fieldName) {
@@ -104,5 +68,5 @@ public without sharing class ConsultantController {
         }
         return picklistValues;
     }
-    
+
 }

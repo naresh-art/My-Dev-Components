@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>First_Name__c</field>
+        <field>Last_Name__c</field>
+        <field>Approval_Status__c</field>
+        <field>Technology_Expertise__c</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Approval_Step1</name>
+                <type>Task</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>nareshp@developer.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>Approval Step1</label>
+        <name>Approval_Step1</name>
+    </approvalStep>
+    <emailTemplate>Test_Folder/HR_Approval_Mail</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <!-- <entryCriteria>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>Consultant__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending Approval From HR</value>
+        </criteriaItems>
+    </entryCriteria> -->
+    <finalApprovalActions>
+        <action>
+            <name>Field_Update_Action1</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Send_First_Round_Email</name>
+            <type>Alert</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>HR Approval Process</label>
+    <processOrder>1</processOrder>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

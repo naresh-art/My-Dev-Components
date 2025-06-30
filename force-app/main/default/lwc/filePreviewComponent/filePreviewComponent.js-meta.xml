@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>File Viewer</masterLabel>
+    <description>View a list of files and preview individual files on a record</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="acceptedFormatList" type="String"
+                default=".pdf,.png,.jpg,.jpeg,.csv,.doc,.docx,.xls,.xlsx"
+                label="Accepted File Formats"
+                description="Comma-separated list of accepted file formats (e.g. .pdf,.png,.csv)"
+                required="true" />
+            <property name="filesPerPage" type="Integer" default="6" label="Files per page"
+                required="true" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

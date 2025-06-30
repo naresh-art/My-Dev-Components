@@ -93,3 +93,10 @@
     font-size: 1.2em;
     color: #d32f2f;
 }
+
+.restricted-access {
+    text-align: center;
+    font-size: 2.5em;
+    color: #d32f2f;
+    margin: 20px;
+}

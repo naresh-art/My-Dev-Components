@@ -1,0 +1,169 @@
+<!-- <template>
+    <lightning-card title="Custom Rich Text Editor">
+        <div class="toolbar">
+            <button type="button" title="Bold" onclick={applyBold}>B</button>
+            <button type="button" title="Italic" onclick={applyItalic}>I</button>
+            <button type="button" title="Underline" onclick={applyUnderline}>U</button>
+            <button type="button" title="Link" onclick={applyLink}>🔗</button>
+        </div>
+        <div class="editor" contenteditable="true"></div>
+        <lightning-button 
+            label="Save" 
+            class="slds-m-top_medium" 
+            onclick={handleSave}>
+        </lightning-button>
+    </lightning-card>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Custom Rich Text Editor">
+        <div class="toolbar">
+            <select title="Font" onchange={changeFont}>
+                <option value="Arial">Arial</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <select title="Size" onchange={changeFontSize}>
+                <option value="1">Small</option>
+                <option value="3">Normal</option>
+                <option value="5">Large</option>
+                <option value="7">Huge</option>
+            </select>
+            <button type="button" title="Bold" onclick={applyBold}>B</button>
+            <button type="button" title="Italic" onclick={applyItalic}>I</button>
+            <button type="button" title="Underline" onclick={applyUnderline}>U</button>
+            <button type="button" title="Text Color" onclick={applyTextColor}>A</button>
+            <button type="button" title="Link" onclick={applyLink}>🔗</button>
+            <button type="button" title="Image" onclick={applyImage}>🖼️</button>
+            <button type="button" title="Align Left" onclick={alignLeft}>⇦</button>
+            <button type="button" title="Align Center" onclick={alignCenter}>⇔</button>
+            <button type="button" title="Align Right" onclick={alignRight}>⇨</button>
+            <button type="button" title="Justify" onclick={alignJustify}>⇤⇥</button>
+        </div>
+        <div class="editor" contenteditable="true"></div>
+        <lightning-button 
+            label="Save" 
+            class="slds-m-top_medium" 
+            onclick={handleSave}>
+        </lightning-button>
+    </lightning-card>
+</template> -->
+
+
+<!-- <template>
+    <lightning-card title="Custom Rich Text Editor">
+        <div class="toolbar">
+            <select title="Font" onchange={changeFont}>
+                <option value="Arial">Arial</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Sans-serif">Sans Serif</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <select title="Size" onchange={changeFontSize}>
+                <option value="1">Small</option>
+                <option value="3" selected>Normal</option>
+                <option value="5">Large</option>
+                <option value="7">Huge</option>
+            </select>
+
+            <button type="button" title="Bold" onclick={applyBold}><b>B</b></button>
+            <button type="button" title="Italic" onclick={applyItalic}><i>I</i></button>
+            <button type="button" title="Underline" onclick={applyUnderline}><u>U</u></button>
+            <button type="button" title="Strikethrough" onclick={applyStrikethrough}><s>S</s></button>
+            <button type="button" title="Text Color" onclick={applyTextColor}>🎨</button>
+            <button type="button" title="Background Color" onclick={applyBackgroundColor}>🖌️</button>
+            <button type="button" title="Clear Formatting" onclick={clearFormatting}>🧹</button>
+            <button type="button" title="Link" onclick={applyLink}>🔗</button>
+
+            <button type="button" title="Image" onclick={triggerImageUpload}>🖼️</button>
+            <input type="file" class="image-upload" accept="image/*" onchange={handleImageUpload} style="display:none" />
+
+
+            <button type="button" title="Align Left" onclick={alignLeft}>⇦</button>
+            <button type="button" title="Align Center" onclick={alignCenter}>⇔</button>
+            <button type="button" title="Align Right" onclick={alignRight}>⇨</button>
+            <button type="button" title="Justify" onclick={alignJustify}>⇤⇥</button>
+
+            <button type="button" title="Undo" onclick={undo}>↺</button>
+            <button type="button" title="Redo" onclick={redo}>↻</button>
+        </div>
+        <div class="editor" contenteditable="true"></div>
+        <lightning-button 
+            label="Save" 
+            class="slds-m-top_medium" 
+            onclick={handleSave}>
+        </lightning-button>
+    </lightning-card>
+</template> -->
+
+
+<template>
+    <lightning-card title="Custom Rich Text Editor">
+        <template if:true={isEditing}>
+            <div class="toolbar">
+                <select title="Font" onchange={changeFont}>
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Sans-serif">Sans Serif</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+                <select title="Size" onchange={changeFontSize}>
+                    <option value="1">Small</option>
+                    <option value="3" selected>Normal</option>
+                    <option value="5">Large</option>
+                    <option value="7">Huge</option>
+                </select>
+
+                <button type="button" title="Bold" onclick={applyBold}><b>B</b></button>
+                <button type="button" title="Italic" onclick={applyItalic}><i>I</i></button>
+                <button type="button" title="Underline" onclick={applyUnderline}><u>U</u></button>
+                <button type="button" title="Strikethrough" onclick={applyStrikethrough}><s>S</s></button>
+                <button type="button" title="Text Color" onclick={applyTextColor}>🎨</button>
+                <button type="button" title="Background Color" onclick={applyBackgroundColor}>🖌️</button>
+                <button type="button" title="Clear Formatting" onclick={clearFormatting}>🧹</button>
+                <button type="button" title="Link" onclick={applyLink}>🔗</button>
+
+                <button type="button" title="Image" onclick={triggerImageUpload}>🖼️</button>
+                <input type="file" class="image-upload" accept="image/*" onchange={handleImageUpload} style="display:none" />
+
+                <button type="button" title="Align Left" onclick={alignLeft}>⇦</button>
+                <button type="button" title="Align Center" onclick={alignCenter}>⇔</button>
+                <button type="button" title="Align Right" onclick={alignRight}>⇨</button>
+                <button type="button" title="Justify" onclick={alignJustify}>⇤⇥</button>
+
+                <button type="button" title="Undo" onclick={undo}>↺</button>
+                <button type="button" title="Redo" onclick={redo}>↻</button>
+
+                <button type="button" title="Bullet List" onclick={applyBulletList}>
+                    🔲
+                </button>
+                <button type="button" title="Numbered List" onclick={applyNumberedList}>
+                    1️⃣
+                </button>
+
+            </div>
+
+            <!-- Rich Text Editor -->
+            <div class="editor" contenteditable="true" lwc:dom="manual"></div>
+
+            <div class="button-group">
+                <lightning-button label="Save" class="slds-m-top_medium" onclick={handleSave}></lightning-button>
+                <lightning-button label="Preview" class="slds-m-top_medium slds-m-left_small" onclick={togglePreview}></lightning-button>
+            </div>
+        </template>
+
+        <!-- Preview Mode -->
+        <template if:false={isEditing}>
+            <div class="preview-container">
+                <h2>Preview</h2>
+                <div class="preview-content" lwc:dom="manual"></div>
+                <lightning-button label="Edit" class="slds-m-top_medium" onclick={togglePreview}></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

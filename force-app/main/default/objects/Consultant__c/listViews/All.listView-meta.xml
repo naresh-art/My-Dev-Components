@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>First_Name__c</columns>
+    <columns>Last_Name__c</columns>
+    <columns>Birthdate__c</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Email_Address__c</columns>
+    <columns>Gender__c</columns>
+    <columns>Primary_Contact_Number__c</columns>
+    <columns>Can_Drive__c</columns>
+    <columns>Current_Status__c</columns>
+    <columns>Experience_in_India__c</columns>
+    <columns>Experience_in_USA__c</columns>
+    <columns>Technology_Expertise__c</columns>
+    <columns>Willing_to_Relocate__c</columns>
+    <columns>Years_of_Experience__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

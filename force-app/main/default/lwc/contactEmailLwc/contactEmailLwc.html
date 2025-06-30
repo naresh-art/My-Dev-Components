@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Create Contact and Send Email">
+        <div class="slds-p-around_medium">
+            <lightning-input label="First Name" value={firstName} onchange={handleChange} data-field="FirstName"></lightning-input>
+            <lightning-input label="Last Name" value={lastName} onchange={handleChange} data-field="LastName"></lightning-input>
+            <lightning-input type="email" label="Email" value={email} onchange={handleChange} data-field="Email"></lightning-input>
+            &nbsp;<br/>
+            <lightning-button label="Create Contact" variant="brand" onclick={handleCreateContact} class="slds-m-top_medium"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
